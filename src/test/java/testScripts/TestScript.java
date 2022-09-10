@@ -10,7 +10,7 @@ import response.ResponseValidatorPage;
 public class TestScript {
 	
 	
-	@Test
+	@Test(description="To validate the RCB team has only 4 foreign players")
 	public void verifyForeignPlayersCount() {
 		ResponseValidatorPage responseValidatorPage= new ResponseValidatorPage();
 		List<String> list1= responseValidatorPage.getForeignPlayersList();
@@ -19,12 +19,12 @@ public class TestScript {
 		System.out.println("Team has exactly 4 foreign players");
 	}
 	
-	@Test
+	@Test(description="To validate the team has at least 1 wicket keeper")
 	public void verifyWicketKeepersCount() {
 		ResponseValidatorPage responseValidatorPage= new ResponseValidatorPage();
 		List<String> list2= responseValidatorPage.getWicketKeepersList();
 		System.out.println("Wicket Keepers List: "+list2);
-		Assert.assertTrue(list2.size()==1, "Count of Wicket Keepers is not exactly 1");
-		System.out.println("Team has exactly 1 Wicket Keepers");
+		Assert.assertTrue(list2.size()>=1, "Count of Wicket Keepers is not atleast 1");
+		System.out.println("Team has at least 1 wicket keeper");
 	}
 }
