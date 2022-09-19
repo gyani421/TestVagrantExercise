@@ -1,88 +1,99 @@
 package response;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class ResponseValidatorPage {
+import com.util.BaseClass;
 
-	static String response="{\r\n"
-			+ "  \"name\": \"Royal Challengers Bangalore\",\r\n"
-			+ "  \"location\": \"Bangalore\",\r\n"
-			+ "  \"player\": [\r\n"
-			+ "    {\r\n"
-			+ "      \"name\": \"Faf Du Plessis\",\r\n"
-			+ "      \"country\": \"South Africa\",\r\n"
-			+ "      \"role\": \"Batsman\",\r\n"
-			+ "      \"price-in-crores\": \"7\"\r\n"
-			+ "    },\r\n"
-			+ "    {\r\n"
-			+ "      \"name\": \"Virat Kohli\",\r\n"
-			+ "      \"country\": \"India\",\r\n"
-			+ "      \"role\": \"Batsman\",\r\n"
-			+ "      \"price-in-crores\": \"15\"\r\n"
-			+ "    },\r\n"
-			+ "    {\r\n"
-			+ "      \"name\": \"Glenn Maxwell\",\r\n"
-			+ "      \"country\": \"Australia\",\r\n"
-			+ "      \"role\": \"Batsman\",\r\n"
-			+ "      \"price-in-crores\": \"11\"\r\n"
-			+ "    },\r\n"
-			+ "    {\r\n"
-			+ "      \"name\": \"Mohammad Siraj\",\r\n"
-			+ "      \"country\": \"India\",\r\n"
-			+ "      \"role\": \"Bowler\",\r\n"
-			+ "      \"price-in-crores\": \"7\"\r\n"
-			+ "    },\r\n"
-			+ "    {\r\n"
-			+ "      \"name\": \"Harshal Patel\",\r\n"
-			+ "      \"country\": \"India\",\r\n"
-			+ "      \"role\": \"Bowler\",\r\n"
-			+ "      \"price-in-crores\": \"10.75\"\r\n"
-			+ "    },\r\n"
-			+ "    {\r\n"
-			+ "      \"name\": \"Wanindu Hasaranga\",\r\n"
-			+ "      \"country\": \"Srilanka\",\r\n"
-			+ "      \"role\": \"Bowler\",\r\n"
-			+ "      \"price-in-crores\": \"10.75\"\r\n"
-			+ "    },\r\n"
-			+ "    {\r\n"
-			+ "      \"name\": \"Dinesh Karthik\",\r\n"
-			+ "      \"country\": \"India\",\r\n"
-			+ "      \"role\": \"Wicket-keeper\",\r\n"
-			+ "      \"price-in-crores\": \"5.5\"\r\n"
-			+ "    },\r\n"
-			+ "    {\r\n"
-			+ "      \"name\": \"Shahbaz Ahmed\",\r\n"
-			+ "      \"country\": \"India\",\r\n"
-			+ "      \"role\": \"All-Rounder\",\r\n"
-			+ "      \"price-in-crores\": \"2.4\"\r\n"
-			+ "    },\r\n"
-			+ "    {\r\n"
-			+ "      \"name\": \"Rajat Patidar\",\r\n"
-			+ "      \"country\": \"India\",\r\n"
-			+ "      \"role\": \"Batsman\",\r\n"
-			+ "      \"price-in-crores\": \"0.20\"\r\n"
-			+ "    },\r\n"
-			+ "    {\r\n"
-			+ "      \"name\": \"Josh Hazlewood\",\r\n"
-			+ "      \"country\": \"Australia\",\r\n"
-			+ "      \"role\": \"Bowler\",\r\n"
-			+ "      \"price-in-crores\": \"7.75\"\r\n"
-			+ "    },\r\n"
-			+ "    {\r\n"
-			+ "      \"name\": \"Mahipal Lomror\",\r\n"
-			+ "      \"country\": \"India\",\r\n"
-			+ "      \"role\": \"Bowler\",\r\n"
-			+ "      \"price-in-crores\": \"7.75\"\r\n"
-			+ "    }\r\n"
-			+ "  ]\r\n"
-			+ "}";
+public class ResponseValidatorPage extends BaseClass{
+	
+	public static final Logger logger= LoggerFactory.getLogger(ResponseValidatorPage.class);
+	
+//	static String response="{\r\n"
+//			+ "  \"name\": \"Royal Challengers Bangalore\",\r\n"
+//			+ "  \"location\": \"Bangalore\",\r\n"
+//			+ "  \"player\": [\r\n"
+//			+ "    {\r\n"
+//			+ "      \"name\": \"Faf Du Plessis\",\r\n"
+//			+ "      \"country\": \"South Africa\",\r\n"
+//			+ "      \"role\": \"Batsman\",\r\n"
+//			+ "      \"price-in-crores\": \"7\"\r\n"
+//			+ "    },\r\n"
+//			+ "    {\r\n"
+//			+ "      \"name\": \"Virat Kohli\",\r\n"
+//			+ "      \"country\": \"India\",\r\n"
+//			+ "      \"role\": \"Batsman\",\r\n"
+//			+ "      \"price-in-crores\": \"15\"\r\n"
+//			+ "    },\r\n"
+//			+ "    {\r\n"
+//			+ "      \"name\": \"Glenn Maxwell\",\r\n"
+//			+ "      \"country\": \"Australia\",\r\n"
+//			+ "      \"role\": \"Batsman\",\r\n"
+//			+ "      \"price-in-crores\": \"11\"\r\n"
+//			+ "    },\r\n"
+//			+ "    {\r\n"
+//			+ "      \"name\": \"Mohammad Siraj\",\r\n"
+//			+ "      \"country\": \"India\",\r\n"
+//			+ "      \"role\": \"Bowler\",\r\n"
+//			+ "      \"price-in-crores\": \"7\"\r\n"
+//			+ "    },\r\n"
+//			+ "    {\r\n"
+//			+ "      \"name\": \"Harshal Patel\",\r\n"
+//			+ "      \"country\": \"India\",\r\n"
+//			+ "      \"role\": \"Bowler\",\r\n"
+//			+ "      \"price-in-crores\": \"10.75\"\r\n"
+//			+ "    },\r\n"
+//			+ "    {\r\n"
+//			+ "      \"name\": \"Wanindu Hasaranga\",\r\n"
+//			+ "      \"country\": \"Srilanka\",\r\n"
+//			+ "      \"role\": \"Bowler\",\r\n"
+//			+ "      \"price-in-crores\": \"10.75\"\r\n"
+//			+ "    },\r\n"
+//			+ "    {\r\n"
+//			+ "      \"name\": \"Dinesh Karthik\",\r\n"
+//			+ "      \"country\": \"India\",\r\n"
+//			+ "      \"role\": \"Wicket-keeper\",\r\n"
+//			+ "      \"price-in-crores\": \"5.5\"\r\n"
+//			+ "    },\r\n"
+//			+ "    {\r\n"
+//			+ "      \"name\": \"Shahbaz Ahmed\",\r\n"
+//			+ "      \"country\": \"India\",\r\n"
+//			+ "      \"role\": \"All-Rounder\",\r\n"
+//			+ "      \"price-in-crores\": \"2.4\"\r\n"
+//			+ "    },\r\n"
+//			+ "    {\r\n"
+//			+ "      \"name\": \"Rajat Patidar\",\r\n"
+//			+ "      \"country\": \"India\",\r\n"
+//			+ "      \"role\": \"Batsman\",\r\n"
+//			+ "      \"price-in-crores\": \"0.20\"\r\n"
+//			+ "    },\r\n"
+//			+ "    {\r\n"
+//			+ "      \"name\": \"Josh Hazlewood\",\r\n"
+//			+ "      \"country\": \"Australia\",\r\n"
+//			+ "      \"role\": \"Bowler\",\r\n"
+//			+ "      \"price-in-crores\": \"7.75\"\r\n"
+//			+ "    },\r\n"
+//			+ "    {\r\n"
+//			+ "      \"name\": \"Mahipal Lomror\",\r\n"
+//			+ "      \"country\": \"India\",\r\n"
+//			+ "      \"role\": \"Bowler\",\r\n"
+//			+ "      \"price-in-crores\": \"7.75\"\r\n"
+//			+ "    }\r\n"
+//			+ "  ]\r\n"
+//			+ "}";
 
 //	public static void main(String[] args) {
-		JSONObject jsonObject = new JSONObject(response);
+	
+//		BaseClass baseClass=new BaseClass();
+		JSONObject jsonObject = new JSONObject(BaseClass.prop.getProperty("response").toString());
 		List<String> ForignCountrylist = new ArrayList<String>();
 		List<String> WicketKeeperslist = new ArrayList<String>();
 
@@ -97,7 +108,8 @@ public class ResponseValidatorPage {
 			}
 		}
 		
-		System.out.println(ForignCountrylist);
+//		System.out.println(ForignCountrylist);
+		logger.info("ForignCountrylist");
 		return ForignCountrylist;
 		}
 		
